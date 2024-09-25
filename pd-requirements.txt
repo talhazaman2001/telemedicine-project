@@ -1,0 +1,5 @@
+Flask==3.0.0
+SQLAlchemy==2.0.1
+boto3==1.28.1
+
+
