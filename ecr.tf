@@ -1,6 +1,6 @@
 # ECR repositories creation
 resource "aws_ecr_repository" "patient_data_service" {
-  name = "patient-data-service"
+  name                 = "patient-data-service"
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration {
     scan_on_push = true
@@ -8,7 +8,7 @@ resource "aws_ecr_repository" "patient_data_service" {
 }
 
 resource "aws_ecr_repository" "doctor_scheduling_service" {
-  name = "doctor-scheduling-service"
+  name                 = "doctor-scheduling-service"
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration {
     scan_on_push = true
@@ -16,7 +16,7 @@ resource "aws_ecr_repository" "doctor_scheduling_service" {
 }
 
 resource "aws_ecr_repository" "health_monitoring_service" {
-  name = "health-monitoring-service"
+  name                 = "health-monitoring-service"
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration {
     scan_on_push = true
@@ -35,3 +35,5 @@ output "doctor_scheduling_service_ecr_uri" {
 output "health_monitoring_service_ecr_uri" {
   value = aws_ecr_repository.health_monitoring_service.repository_url
 }
+
+

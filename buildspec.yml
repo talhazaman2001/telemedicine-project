@@ -1,0 +1,41 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_ACCOUNT_ID: 463470963000
+    AWS_DEFAULT_REGION: eu-west-2
+    ECR_PATIENT_REPO: patient-data-service
+    ECR_DOCTOR_REPO: doctor-scheduling-service
+    ECR_HEALTH_REPO: health-monitoring-service
+    IMAGE_TAG: latest
+
+phases:
+  install:
+    runtime-versions:
+      docker: 20
+    commands:
+      - echo "Installing dependencies"
+      - pip install -r requirements.txt
+
+  pre-build: 
+    commands: 
+      - echo "Logging into Amazon ECR"
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo "Building patient data Docker image"
+      - docker build -t $ECR_PATIENT_REPO:$IMAGE_TAG ./patient-data-service
+      - docker tag $ECR_PATIENT_REPO:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_PATIENT_REPO:$IMAGE_TAG
+
+      - echo "Building doctor scheduling Docker image"
+      - docker build -t $ECR_DOCTOR_REPO:$IMAGE_TAG ./doctor-scheduling-service
+      - docker tag $ECR_DOCTOR_REPO:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_DOCTOR_REPO:$IMAGE_TAG
+
+      - echo "Building health monitoring Docker image"
+      - docker build -t $ECR_HEALTH_REPO:$IMAGE_TAG ./health-monitoring-service
+      - docker tag $ECR_HEALTH_REPO:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_HEALTH_REPO:$IMAGE_TAG
+
+      
+
+      
