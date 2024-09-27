@@ -77,8 +77,8 @@ resource "aws_iam_policy" "codedeploy_ecs_policy" {
       {
         Effect   = "Allow",
         Action   = [
-          "ecs:DescribeServices",     # Required for ECS service information
-          "ecs:UpdateService",        # Required to update ECS service during deployment
+          "ecs:DescribeServices",     
+          "ecs:UpdateService",        
           "ecs:ListTasks",
           "ecs:DescribeTasks",
           "ecs:RegisterTaskDefinition"
