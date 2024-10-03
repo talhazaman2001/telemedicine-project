@@ -71,7 +71,7 @@ resource "aws_ecs_task_definition" "telemedicine_task" {
     },
     {
       name      = "patient-data-service"
-      image     = "${aws_ecr_repository.patient_data_service.repository_url}:latest" # Use ECR URI from output in ECR file
+      image     = "${aws_ecr_repository.patient_data_service.repository_url}:latest" 
       essential = true
       portMappings = [{
         containerPort = 5000
@@ -92,7 +92,7 @@ resource "aws_ecs_task_definition" "telemedicine_task" {
     },
     {
       name      = "doctor-scheduling-service"
-      image     = "${aws_ecr_repository.doctor_scheduling_service.repository_url}:latest" # Use ECR URI from output in ECR file
+      image     = "${aws_ecr_repository.doctor_scheduling_service.repository_url}:latest" 
       essential = true
       portMappings = [{
         containerPort = 5001
@@ -113,7 +113,7 @@ resource "aws_ecs_task_definition" "telemedicine_task" {
     },
     {
       name      = "health-monitoring-service"
-      image     = "${aws_ecr_repository.health_monitoring_service.repository_url}:latest" # Use ECR URI from output in ECR file
+      image     = "${aws_ecr_repository.health_monitoring_service.repository_url}:latest" # 
       essential = true
       portMappings = [{
         containerPort = 5002
