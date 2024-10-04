@@ -25,7 +25,7 @@ resource "aws_iam_policy" "sagemaker_rds_dynamodb_policy" {
       {
         Effect = "Allow",
         Action = [
-          "dynamodn:GetItem",
+          "dynamodb:GetItem",
           "dynamodb:Scan",
           "dynamodb:Query"
         ],
