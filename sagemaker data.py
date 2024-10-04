@@ -13,7 +13,7 @@ print(glucose_data)
 import psycopg2
 
 # RDS PostgreSQL credentials
-rds_host = "<your-rds-endpoint>" # Placeholder for the endpoint
+rds_host = "rds-endpoint>" # Placeholder for the endpoint
 name = "admin"
 password = "password123"
 db_name = "telemedicinedb"
