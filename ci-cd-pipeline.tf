@@ -66,45 +66,6 @@ resource "aws_iam_role_policy_attachment" "codedeploy_attach" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
 }
 
-# IAM policy for CodeDeploy to manage ECS
-resource "aws_iam_policy" "codedeploy_ecs_policy" {
-  name        = "codedeploy-ecs-policy"
-  description = "Policy for CodeDeploy to interact with ECS services"
-  
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect   = "Allow",
-        Action   = [
-          "ecs:DescribeServices",     
-          "ecs:UpdateService",        
-          "ecs:ListTasks",
-          "ecs:DescribeTasks",
-          "ecs:RegisterTaskDefinition"
-        ],
-        Resource = "*"
-      },
-      {
-        Effect   = "Allow",
-        Action   = [
-          "elasticloadbalancing:DescribeTargetGroups",
-          "elasticloadbalancing:DescribeTargetHealth",
-          "elasticloadbalancing:ModifyTargetGroup"
-        ],
-        Resource = "*"
-      }
-    ]
-  })
-}
-
-# Attach the policy to the codedeploy-role
-resource "aws_iam_role_policy_attachment" "codedeploy_policy_attach" {
-  role       = aws_iam_role.codedeploy_role.name
-  policy_arn = aws_iam_policy.codedeploy_ecs_policy.arn
-}
-
-
 # Create CodeBuild Project
 resource "aws_codebuild_project" "telemedicine_backend_build" {
   name = "telemedicine-backend-build"
