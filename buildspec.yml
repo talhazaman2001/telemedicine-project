@@ -36,6 +36,11 @@ phases:
       - docker build -t $ECR_HEALTH_REPO:$IMAGE_TAG ./health-monitoring-service
       - docker tag $ECR_HEALTH_REPO:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_HEALTH_REPO:$IMAGE_TAG
 
-      
+  post-build:
+    commands:
+      - echo "Pushing Docker Images to ECR"
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_PATIENT_REPO:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_DOCTOR_REPO:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_HEALTH_REPO:$IMAGE_TAG
 
       
