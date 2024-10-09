@@ -6,6 +6,22 @@ resource "aws_iot_thing" "iot_device" {
   }
 }
 
+# IAM Role for IoT Core to interact with other AWS Services
+resource "aws_iam_role" "iot_role" {
+    name = "iot_role"
+
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [{
+            Effect = "Allow"
+            Principal = {
+                Service = "iot.amazonaws.com"
+            },
+            Action = "sts:AssumeRole"
+        }]
+    })
+}
+
 # IoT Policy for Device Authentication
 resource "aws_iot_policy" "iot_device_policy" {
   name = "iot-device-policy"
