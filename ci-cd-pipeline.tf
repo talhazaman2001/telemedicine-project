@@ -24,6 +24,11 @@ resource "aws_iam_role_policy_attachment" "codepipeline_attach" {
   policy_arn = "arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "codestar_attach" {
+    role = aws_iam_role.codepipeline_role.name
+    policy_arn = "arn:aws:iam::aws:policy/AWSCodestarConnectionsUseRole"
+}
+
 # IAM Role for CodeBuild
 resource "aws_iam_role" "codebuild_role" {
   name = "codebuild-role"
